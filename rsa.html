@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+<head>
+<!-- 2024-05-16 Do 11:00 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RSA</title>
+<meta name="author" content="Lukas Singer" />
+<meta name="description" content="Theorie und Beispiel zu RSA Berechnungen (Schlüssel generieren, Ver- und Entschlüsseln)" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,sans-serif;font-size:1em}pre{white-space:pre-wrap;word-wrap:break-word}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html{font-family:'PT Sans',sans-serif}pre,code{font-family:monospace,serif}h1,h2,h3,h4,h5,h6{font-family:'PT Sans Narrow',sans-serif;font-weight:700}html{background-color:#073642;color:#839496;margin:1em}body{background-color:#002b36;margin:0 auto;max-width:23cm;border:1pt solid #586e75;padding:1em}code{background-color:#073642;padding:2px}a{color:#b58900}a:visited{color:#cb4b16}a:hover{color:#cb4b16}h1{color:#d33682}h2,h3,h4,h5,h6{color:#859900}pre{background-color:#002b36;color:#839496;border:1pt solid #586e75;padding:1em;box-shadow:5pt 5pt 8pt #073642}pre code{background-color:#002b36}h1{font-size:2.8em}h2{font-size:2.4em}h3{font-size:1.8em}h4{font-size:1.4em}h5{font-size:1.3em}h6{font-size:1.15em}.tag{background-color:#073642;color:#d33682;padding:0 .2em}.todo,.next,.done{color:#002b36;background-color:#dc322f;padding:0 .2em}.tag{-webkit-border-radius:.35em;-moz-border-radius:.35em;border-radius:.35em}.TODO{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#2aa198}.NEXT{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#268bd2}.ACTIVE{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#268bd2}.DONE{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#859900}.WAITING{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#cb4b16}.HOLD{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#d33682}.NOTE{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#d33682}.CANCELLED{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#859900}
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">RSA</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Inhaltsverzeichnis</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org720c724">1. RSA-Kryptosystem</a>
+<ul>
+<li><a href="#org248f6ac">1.1. Mathematische Grundlagen</a>
+<ul>
+<li><a href="#orgb28d6a6">1.1.1. Primzahlen</a></li>
+</ul>
+</li>
+<li><a href="#org1645b49">1.2. RSA (jetzt aber wirklich)</a>
+<ul>
+<li><a href="#orgff289e9">1.2.1. Generieren eines Schlüsselpaares (public- und private key)</a></li>
+<li><a href="#org39e9937">1.2.2. Eine Nachricht verschlüsseln</a></li>
+<li><a href="#org32fb6e9">1.2.3. Eine Nachricht entschlüsseln</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org720c724" class="outline-2">
+<h2 id="org720c724"><span class="section-number-2">1.</span> RSA-Kryptosystem</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Das <b>RSA-Kryptosystem</b> ist ist ein Asymmetrisches Verfahren in der Kryptographie.
+Benannt ist RSA nach den drei Mathematikern Rivest, Shamir, Adleman.
+Kryptosystem bedeutet, dass es sich nicht nur zur Verschlüsselung, sondern auch zur Validierung von Nachrichten eignet.
+Asymmetrisches Verfahren bedeutet, dass es ein Schlüsselpaar, also zwei verschiedene Schlüssel gibt.
+Man spricht von <b>public Key</b> (öffentlicher Schlüssel) und <b>private Key</b> (privater oder geheimer Schlüssel).
+Wurde eine Nachricht mit einem Schlüssel eines Schlüsselpaares verschlüsselt, kann diese nur mit dem anderen Schlüssel des Schlüsselpaares entschlüsselt werden.
+</p>
+</div>
+
+<div id="outline-container-org248f6ac" class="outline-3">
+<h3 id="org248f6ac"><span class="section-number-3">1.1.</span> Mathematische Grundlagen</h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-orgb28d6a6" class="outline-4">
+<h4 id="orgb28d6a6"><span class="section-number-4">1.1.1.</span> Primzahlen</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+\[ \mathbb{P} := \{ p \in \mathbb{N} \text{ } | \text{ } p \bmod q \neq 0 \text{ } \forall \text{ } q \in \mathbb{N} \text{ } | \text{ } q > 1 \land q < p \} \]
+</p>
+
+<p>
+\[ \mathbb{P} = \{ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, \text{...} \} \]
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org75bec41"></a>Sieb des Eratosthenes<br />
+<div class="outline-text-5" id="text-1-1-1-1">
+<p>
+Eratosthenes von Kyrene war ein griechischer Gelehrter der ca. 200 vor Christus lebte.
+Eratosthenes wurde vor allem dafür bekannt den Umfang der Erde, für die damalige Zeit, erstaunlich genau berechnet zu haben.
+Eine weitere seiner Arbeiten beschäftigt sich damit, wie man eine Liste von Primzahlen generieren kann.
+</p>
+
+<p>
+Dabei werden die Zahlen von 2 beginnend bis zu der höchsten Zahl die man betrachten möchte notiert.
+Dann startet der Algorithmus.
+Man nimmt die erste Zahl die noch nicht gestrichen ist. Diese ist eine Primzahl!
+Dann streicht man alle vielfachen dieser Zahl und beginnt wieder von vorne mit der nächsten nicht gestrichene Zahl usw.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">def eratosthenes(n=100):
+    e = set(range(2, n))
+    p = 0
+    while len(e) &gt; 0:
+        p = min(e)
+        e.discard(p)
+        for i in range(2, 1 + n // p):
+            e.discard(p * i)
+        yield p
+primes = list(eratosthenes(1000))
+print(primes[-10:])
+#for p in primes:
+#    print('{: &gt;5d}'.format(p))
+</pre>
+</div>
+
+<pre class="example">
+[937, 941, 947, 953, 967, 971, 977, 983, 991, 997]
+</pre>
+</div>
+</li>
+
+<li><a id="org05eb08e"></a>Euklidischer und erweiterter euklidischer Algorithmus<br />
+<div class="outline-text-5" id="text-1-1-1-2">
+<p>
+Der \( ggT(a, b) \) (sprich: größter gemeinsamer Teiler von \(a\) und \(b\)) ist die größte Zahl die sowohl \(a\) als auch \(b\) ohne Rest teilt.
+Um den <b>ggT</b> zu ermitteln kann man den <b>euklidischen Algorithmus</b> nutzen.
+Der euklidische Algorithmus nutzt die Modulorechnung zur Ermittlung des ggT.
+Zur Erinnerung der Rest \(r\) erfüllt die Ganzzahlige Gleichung
+\[ a = q \cdot b + r \]
+</p>
+
+<p>
+Sucht man den \( ggT(23, 17) \) trägt man \(a\) und \(b\) in folgende Tabelle ein und füllt die Zeile entsprechend der Gleichung aus.
+Anschließend schreibt man das \(b\) aus der vorherigen Zeile in die Spalte \(a\) und das \(r\) in die Spalte \(b\).
+Das wiederholt man solange bis \( r = 0 \) ist.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">a</th>
+<th scope="col" class="org-right">b</th>
+<th scope="col" class="org-right">q</th>
+<th scope="col" class="org-right">r</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">23</td>
+<td class="org-right">17</td>
+<td class="org-right">1</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-right">6</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-right">5</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">1</td>
+<td class="org-right">5</td>
+<td class="org-right"><b>0</b></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Den <b>ggT</b> findet man dann in der vorletzten Zeile in Spalte \(r\) (oder in der letzten in Spalte \(b\)).
+</p>
+
+<p>
+Für das RSA-Verfahren benötigt man nicht nur den ggT alleine, sondern den ggT als Linearkombination in der Form:
+\[ ggT(a, b) = a \cdot x + b \cdot y \]
+</p>
+
+<p>
+Wobei \(x\) und \(y\) ganze Zahlen sein müssen, also \( x, y \in \mathbb{Z} \).
+</p>
+
+<p>
+Um \(x\) und \(y\) zu ermitteln könnte man nun probieren, aber für große Zahlen ist das nicht sehr effektiv.
+Man nutzt den <b>erweiterten euklidischen Algorithmus</b>.
+</p>
+
+<p>
+Beim erweiterte euklidische Algorithmus startet man gleich wie beim (einfachen) euklidischen Algorithmus und fügt der Tabelle noch zwei Spalten \(x\) und \(y\) hinzu.
+Man arbeitet sich nachdem man den ggT ermittelt hat wieder von unten nach oben.
+</p>
+
+<p>
+Als erstes trägt man in die unterste Zeile \(x = 0\) und \(y = 1\) ein.
+Das erfüllt die Gleichung \( ggT(a, b) = a \cdot x + b \cdot y \) für diese Zeile.
+</p>
+
+<p>
+Die vorherige Spalte \(y\) wird nun zur nächsten (darüberliegenden) Spalte \(x\). Somit muss
+man für diese Zeile nur noch \(y\) so wählen, dass \( ggT(a, b) = a \cdot x + b \cdot y \) stimmt.
+</p>
+
+<p>
+Also Formel umstellen nach:
+\[ y = \frac{ggT(a, b) - a \cdot x}{b} \]
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">a</th>
+<th scope="col" class="org-right">b</th>
+<th scope="col" class="org-right">q</th>
+<th scope="col" class="org-right">r</th>
+<th scope="col" class="org-right">x</th>
+<th scope="col" class="org-right">y</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">23</td>
+<td class="org-right">17</td>
+<td class="org-right">1</td>
+<td class="org-right">6</td>
+<td class="org-right"><b>3</b></td>
+<td class="org-right"><b>-4</b></td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-right">6</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+<td class="org-right">-1</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-right">5</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">1</td>
+<td class="org-right">5</td>
+<td class="org-right"><b>0</b></td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Aus der Tabelle kann man nun folgendes Ablesen:
+Der \( ggT(a, b) \) mit \( a = 23 \) und \( b = 17 \) ist \( 1 \).
+Als Linearkombination gilt:
+\[ ggT(23, 17) = 1 = 23 \cdot 3 + 17 \cdot \neg 4 \]
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">def euklid(a, b):
+    i = 0
+    a = {i: a}
+    b = {i: b}
+    r = {i: a[i] % b[i]}
+    while r[i] != 0:
+        i += 1
+        a[i] = b[i - 1]
+        b[i] = r[i - 1]
+        r[i] = a[i] % b[i]
+    g = b[i]
+    x = {i: 0}
+    y = {i: 1}
+    while i &gt; 0:
+        i -= 1
+        x[i] = y[i + 1]
+        y[i] = (g - a[i] * x[i]) // b[i]
+    return g, x[0], y[0]
+
+a, b = 23, 17
+ggT, x, y = euklid(a, b)
+print(f'ggT({a}, {b}) = {ggT} = {a} * {x} + {b} * {y}')
+</pre>
+</div>
+
+<pre class="example">
+ggT(23, 17) = 1 = 23 * 3 + 17 * -4
+</pre>
+</div>
+</li>
+
+<li><a id="orge72bbd8"></a>Eulersche \(\phi\)-Funktion<br />
+<div class="outline-text-5" id="text-1-1-1-3">
+<p>
+Die eulersche \(\phi\)-Funktion (Phi-Funktion) ist eine Zahlentheoretische Funktion.
+\(\phi(n)\) gibt an wieviele zu \(n\) teilerfremde Zahlen es gibt.
+</p>
+
+<p>
+Für Primzahlen gilt:
+\[ \phi(p) = p − 1 \text{ mit } p \in \mathbb{P} \]
+Für Produkte von Primzahlen (also jede beliebige natürliche Zahl größer als 1) gilt:
+\[ \phi(n) = \phi(p1 \cdot p2 \cdot ... \cdot pk ) = \phi(p1) \cdot \phi(p2 ) \cdot ... \cdot \phi(pk ) = (p1 − 1) \cdot (p2 − 1) \cdot ... \cdot (pk − 1) \]
+</p>
+
+<p>
+Für unseren Spezialfall, also ein Produkt aus zwei Primzahlen gilt daher:
+\[ \phi(p \cdot q) = \phi(p) \cdot \phi(q) = (p - 1) \cdot (q - 1) \text{ mit } p \in \mathbb{P} \]
+</p>
+
+<p>
+Für unser Beispiel mit den Primzahlen \(23\) und \(17\) gilt daher:
+\[ \phi(23 \cdot 17) = \phi(23) \cdot \phi(17) = (23 - 1) \cdot (17 - 1) = 352 \]
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org1645b49" class="outline-3">
+<h3 id="org1645b49"><span class="section-number-3">1.2.</span> RSA (jetzt aber wirklich)</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-orgff289e9" class="outline-4">
+<h4 id="orgff289e9"><span class="section-number-4">1.2.1.</span> Generieren eines Schlüsselpaares (public- und private key)</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<ol class="org-ol">
+<li><p>
+Wähle zwei Primzahlen \(p, q \in \mathbb{P} \)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">import random
+p = random.choice(primes[-50:])
+q = random.choice(primes[-50:])
+print(f'p = {p}, q = {q}')
+</pre>
+</div>
+
+<pre class="example">
+p = 797, q = 883
+</pre></li>
+
+<li><p>
+Berechne das Produkt \(n\) der Zahlen \(p\) und \(q\).
+\(n\) ist das <b>RSA-Modul</b>.
+</p>
+<div class="org-src-container">
+<pre class="src src-python">n = p * q
+print(f'n = {n}')
+</pre>
+</div>
+
+<pre class="example">
+n = 703751
+</pre></li>
+
+<li><p>
+Berechne \(\phi(n)\).
+</p>
+<div class="org-src-container">
+<pre class="src src-python">phi = (p - 1) * (q - 1)
+print(f'phi = {phi}')
+</pre>
+</div>
+
+<pre class="example">
+phi = 702072
+</pre></li>
+
+<li><p>
+Finde eine Zahl \(e\) für die gilt:
+    \[ 1 < e < \phi(n) \text{ mit } ggT(e, \phi(n)) = 1 \]
+\(e\) ist der öffentliche Exponent.
+</p>
+<div class="org-src-container">
+<pre class="src src-python">e = 1
+while e &lt;= 1 or e &gt; phi or euklid(e, phi)[0] != 1:
+    e = random.choice(primes[-100:])
+print(f'e = {e}')
+</pre>
+</div>
+
+<pre class="example">
+e = 631
+</pre></li>
+
+<li><p>
+Die beiden Zahlen \(e\) und \(n\) sind der öffentliche Schlüssel (oder public Key).
+\((e, n)\) kann nun veröffentlicht werden.
+Alles andere \((p, q, \phi(n))\) muss geheim bleiben!
+</p>
+<div class="org-src-container">
+<pre class="src src-python">public_key = (e, n)
+print(f'public key = {public_key}')
+</pre>
+</div>
+
+<pre class="example">
+public key = (631, 703751)
+</pre></li>
+
+<li><p>
+Bestimme \(d\) damit \( ggT(e, \phi(n)) = 1 = e \cdot d + \phi(n) \cdot k \) gilt.
+\(k\) wird nicht benötigt.
+\(d\) ist der geheime (oder private) Exponent.
+</p>
+<div class="org-src-container">
+<pre class="src src-python">_ggT, d, _k = euklid(e, phi)
+if d &lt; 0:
+    d += phi
+print(f'd = {d}')
+</pre>
+</div>
+
+<pre class="example">
+d = 124615
+</pre></li>
+
+<li><p>
+Die beiden Zahlen \(d\) und \(n\) sind der geheime Schlüssel (oder private Key).
+\((d, n)\) muss geheim bleiben.
+Alles außer \((e, n)\) und \((d, n)\) sollte aus Sicherheitsgründen gelöscht werden.
+</p>
+<div class="org-src-container">
+<pre class="src src-python">private_key = (d, n)
+print(f'private key = {private_key}')
+</pre>
+</div>
+
+<pre class="example">
+private key = (124615, 703751)
+</pre></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org39e9937" class="outline-4">
+<h4 id="org39e9937"><span class="section-number-4">1.2.2.</span> Eine Nachricht verschlüsseln</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+Um eine Nachricht zu verschlüsseln wird folgende Formel genutzt:
+    \[ G = K^e \bmod n \]
+wobei \(G\) der Geheimtext und \(K\) der Klartext sind.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"># crypt ver- und entschlüsselt.
+# k  ist ein schlüsselpaar der form (e, n) bzw. (d, n)
+# m  ist die message (Nachricht)                            
+crypt = lambda k, m: (m ** k[0]) % k[1]
+
+K = 420
+G = crypt(public_key, K)
+print(f'aus    K = {K}\nwurde  G = {G}')
+</pre>
+</div>
+
+<pre class="example">
+aus    K = 420
+wurde  G = 545480
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org32fb6e9" class="outline-4">
+<h4 id="org32fb6e9"><span class="section-number-4">1.2.3.</span> Eine Nachricht entschlüsseln</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+Um einen Geheimtext zu entschlüsseln wird die selbe Formel verwendet wie zum verschlüsseln.
+Statt dem public key muss man nun den passenden private key verwenden.
+    \[ K = G^d \bmod n \]
+Wobei \(K\) wieder der Klartext und \(G\) wieder der Geheimtext (die verschlüsselte Nachricht) ist.
+</p>
+<div class="org-src-container">
+<pre class="src src-python">K = crypt(private_key, G)
+print(f'aus    G = {G}\nwurde  K = {K}')
+</pre>
+</div>
+
+<pre class="example">
+aus    G = 545480
+wurde  K = 420
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autor: Lukas Singer</p>
+<p class="date">Created: 2024-05-16 Do 11:00</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
