@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-<!-- 2024-05-16 Do 11:00 -->
+<!-- 2024-05-17 Fr 13:38 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>RSA</title>
+<title>RSA-Kryptosystem</title>
 <meta name="author" content="Lukas Singer" />
 <meta name="description" content="Theorie und Beispiel zu RSA Berechnungen (Schlüssel generieren, Ver- und Entschlüsseln)" />
 <meta name="generator" content="Org Mode" />
@@ -41,35 +41,32 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
  |
  <a accesskey="H" href="index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">RSA</h1>
+<h1 class="title">RSA-Kryptosystem</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Inhaltsverzeichnis</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org720c724">1. RSA-Kryptosystem</a>
+<li><a href="#org12b435e">1. Mathematische Grundlagen</a>
 <ul>
-<li><a href="#org248f6ac">1.1. Mathematische Grundlagen</a>
+<li><a href="#org51a6787">1.1. Primzahlen</a>
 <ul>
-<li><a href="#orgb28d6a6">1.1.1. Primzahlen</a></li>
+<li><a href="#org78374c6">1.1.1. Sieb des Eratosthenes</a></li>
+<li><a href="#org59cc931">1.1.2. Euklidischer und erweiterter euklidischer Algorithmus</a></li>
+<li><a href="#org217d978">1.1.3. Eulersche \(\phi\)-Funktion</a></li>
 </ul>
 </li>
-<li><a href="#org1645b49">1.2. RSA (jetzt aber wirklich)</a>
-<ul>
-<li><a href="#orgff289e9">1.2.1. Generieren eines Schlüsselpaares (public- und private key)</a></li>
-<li><a href="#org39e9937">1.2.2. Eine Nachricht verschlüsseln</a></li>
-<li><a href="#org32fb6e9">1.2.3. Eine Nachricht entschlüsseln</a></li>
 </ul>
 </li>
+<li><a href="#orgf9c7248">2. RSA (jetzt aber wirklich)</a>
+<ul>
+<li><a href="#org22fb398">2.1. Generieren eines Schlüsselpaares (public- und private key)</a></li>
+<li><a href="#org824f152">2.2. Eine Nachricht verschlüsseln</a></li>
+<li><a href="#org11a6d13">2.3. Eine Nachricht entschlüsseln</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-
-
-<div id="outline-container-org720c724" class="outline-2">
-<h2 id="org720c724"><span class="section-number-2">1.</span> RSA-Kryptosystem</h2>
-<div class="outline-text-2" id="text-1">
 <p>
 Das <b>RSA-Kryptosystem</b> ist ist ein Asymmetrisches Verfahren in der Kryptographie.
 Benannt ist RSA nach den drei Mathematikern Rivest, Shamir, Adleman.
@@ -78,15 +75,14 @@ Asymmetrisches Verfahren bedeutet, dass es ein Schlüsselpaar, also zwei verschi
 Man spricht von <b>public Key</b> (öffentlicher Schlüssel) und <b>private Key</b> (privater oder geheimer Schlüssel).
 Wurde eine Nachricht mit einem Schlüssel eines Schlüsselpaares verschlüsselt, kann diese nur mit dem anderen Schlüssel des Schlüsselpaares entschlüsselt werden.
 </p>
-</div>
 
-<div id="outline-container-org248f6ac" class="outline-3">
-<h3 id="org248f6ac"><span class="section-number-3">1.1.</span> Mathematische Grundlagen</h3>
-<div class="outline-text-3" id="text-1-1">
+<div id="outline-container-org12b435e" class="outline-2">
+<h2 id="org12b435e"><span class="section-number-2">1.</span> Mathematische Grundlagen</h2>
+<div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgb28d6a6" class="outline-4">
-<h4 id="orgb28d6a6"><span class="section-number-4">1.1.1.</span> Primzahlen</h4>
-<div class="outline-text-4" id="text-1-1-1">
+<div id="outline-container-org51a6787" class="outline-3">
+<h3 id="org51a6787"><span class="section-number-3">1.1.</span> Primzahlen</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
 \[ \mathbb{P} := \{ p \in \mathbb{N} \text{ } | \text{ } p \bmod q \neq 0 \text{ } \forall \text{ } q \in \mathbb{N} \text{ } | \text{ } q > 1 \land q < p \} \]
 </p>
@@ -96,9 +92,9 @@ Wurde eine Nachricht mit einem Schlüssel eines Schlüsselpaares verschlüsselt,
 </p>
 </div>
 
-<ol class="org-ol">
-<li><a id="org75bec41"></a>Sieb des Eratosthenes<br />
-<div class="outline-text-5" id="text-1-1-1-1">
+<div id="outline-container-org78374c6" class="outline-4">
+<h4 id="org78374c6"><span class="section-number-4">1.1.1.</span> Sieb des Eratosthenes</h4>
+<div class="outline-text-4" id="text-1-1-1">
 <p>
 Eratosthenes von Kyrene war ein griechischer Gelehrter der ca. 200 vor Christus lebte.
 Eratosthenes wurde vor allem dafür bekannt den Umfang der Erde, für die damalige Zeit, erstaunlich genau berechnet zu haben.
@@ -124,8 +120,6 @@ Dann streicht man alle vielfachen dieser Zahl und beginnt wieder von vorne mit d
         yield p
 primes = list(eratosthenes(1000))
 print(primes[-10:])
-#for p in primes:
-#    print('{: &gt;5d}'.format(p))
 </pre>
 </div>
 
@@ -133,10 +127,11 @@ print(primes[-10:])
 [937, 941, 947, 953, 967, 971, 977, 983, 991, 997]
 </pre>
 </div>
-</li>
+</div>
 
-<li><a id="org05eb08e"></a>Euklidischer und erweiterter euklidischer Algorithmus<br />
-<div class="outline-text-5" id="text-1-1-1-2">
+<div id="outline-container-org59cc931" class="outline-4">
+<h4 id="org59cc931"><span class="section-number-4">1.1.2.</span> Euklidischer und erweiterter euklidischer Algorithmus</h4>
+<div class="outline-text-4" id="text-1-1-2">
 <p>
 Der \( ggT(a, b) \) (sprich: größter gemeinsamer Teiler von \(a\) und \(b\)) ist die größte Zahl die sowohl \(a\) als auch \(b\) ohne Rest teilt.
 Um den <b>ggT</b> zu ermitteln kann man den <b>euklidischen Algorithmus</b> nutzen.
@@ -309,7 +304,7 @@ Also Formel umstellen nach:
 Aus der Tabelle kann man nun folgendes Ablesen:
 Der \( ggT(a, b) \) mit \( a = 23 \) und \( b = 17 \) ist \( 1 \).
 Als Linearkombination gilt:
-\[ ggT(23, 17) = 1 = 23 \cdot 3 + 17 \cdot \neg 4 \]
+\[ ggT(23, 17) = 1 = 23 \cdot 3 + 17 \cdot - 4 \]
 </p>
 
 <div class="org-src-container">
@@ -342,10 +337,11 @@ print(f'ggT({a}, {b}) = {ggT} = {a} * {x} + {b} * {y}')
 ggT(23, 17) = 1 = 23 * 3 + 17 * -4
 </pre>
 </div>
-</li>
+</div>
 
-<li><a id="orge72bbd8"></a>Eulersche \(\phi\)-Funktion<br />
-<div class="outline-text-5" id="text-1-1-1-3">
+<div id="outline-container-org217d978" class="outline-4">
+<h4 id="org217d978"><span class="section-number-4">1.1.3.</span> Eulersche \(\phi\)-Funktion</h4>
+<div class="outline-text-4" id="text-1-1-3">
 <p>
 Die eulersche \(\phi\)-Funktion (Phi-Funktion) ist eine Zahlentheoretische Funktion.
 \(\phi(n)\) gibt an wieviele zu \(n\) teilerfremde Zahlen es gibt.
@@ -368,18 +364,17 @@ Für unser Beispiel mit den Primzahlen \(23\) und \(17\) gilt daher:
 \[ \phi(23 \cdot 17) = \phi(23) \cdot \phi(17) = (23 - 1) \cdot (17 - 1) = 352 \]
 </p>
 </div>
-</li>
-</ol>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org1645b49" class="outline-3">
-<h3 id="org1645b49"><span class="section-number-3">1.2.</span> RSA (jetzt aber wirklich)</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-orgf9c7248" class="outline-2">
+<h2 id="orgf9c7248"><span class="section-number-2">2.</span> RSA (jetzt aber wirklich)</h2>
+<div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgff289e9" class="outline-4">
-<h4 id="orgff289e9"><span class="section-number-4">1.2.1.</span> Generieren eines Schlüsselpaares (public- und private key)</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-org22fb398" class="outline-3">
+<h3 id="org22fb398"><span class="section-number-3">2.1.</span> Generieren eines Schlüsselpaares (public- und private key)</h3>
+<div class="outline-text-3" id="text-2-1">
 <ol class="org-ol">
 <li><p>
 Wähle zwei Primzahlen \(p, q \in \mathbb{P} \)
@@ -398,7 +393,7 @@ p = 797, q = 883
 </pre></li>
 
 <li><p>
-Berechne das Produkt \(n\) der Zahlen \(p\) und \(q\).
+Berechne \(n\) als Produkt der Zahlen \(p\) und \(q\).
 \(n\) ist das <b>RSA-Modul</b>.
 </p>
 <div class="org-src-container">
@@ -491,9 +486,9 @@ private key = (124615, 703751)
 </div>
 </div>
 
-<div id="outline-container-org39e9937" class="outline-4">
-<h4 id="org39e9937"><span class="section-number-4">1.2.2.</span> Eine Nachricht verschlüsseln</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-org824f152" class="outline-3">
+<h3 id="org824f152"><span class="section-number-3">2.2.</span> Eine Nachricht verschlüsseln</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 Um eine Nachricht zu verschlüsseln wird folgende Formel genutzt:
     \[ G = K^e \bmod n \]
@@ -519,9 +514,9 @@ wurde  G = 545480
 </div>
 </div>
 
-<div id="outline-container-org32fb6e9" class="outline-4">
-<h4 id="org32fb6e9"><span class="section-number-4">1.2.3.</span> Eine Nachricht entschlüsseln</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<div id="outline-container-org11a6d13" class="outline-3">
+<h3 id="org11a6d13"><span class="section-number-3">2.3.</span> Eine Nachricht entschlüsseln</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 Um einen Geheimtext zu entschlüsseln wird die selbe Formel verwendet wie zum verschlüsseln.
 Statt dem public key muss man nun den passenden private key verwenden.
@@ -542,10 +537,9 @@ wurde  K = 420
 </div>
 </div>
 </div>
-</div>
 <div id="postamble" class="status">
 <p class="author">Autor: Lukas Singer</p>
-<p class="date">Created: 2024-05-16 Do 11:00</p>
+<p class="date">Created: 2024-05-17 Fr 13:38</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
