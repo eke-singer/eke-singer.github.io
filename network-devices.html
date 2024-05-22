@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-<!-- 2024-05-22 Mi 14:36 -->
+<!-- 2024-05-22 Mi 15:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Dokumentation für HP-Switch (2530) und HP-Router (MSR1003)</title>
@@ -26,89 +26,89 @@
 <h2>Inhaltsverzeichnis</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga4dc9c7">1. Über diese Dokumentation</a>
+<li><a href="#org16cd822">1. Über diese Dokumentation</a>
 <ul>
-<li><a href="#org28e6b12">1.1. Synopsis</a></li>
-<li><a href="#org53e621d">1.2. Tags (<code>TBV</code>, <code>INC</code>, <code>ERR</code>)</a></li>
-<li><a href="#org2536208">1.3. Tabulator <code>&lt;TAB&gt;</code> und Fragezeichen <code>&lt;?&gt;</code></a></li>
+<li><a href="#org81aed7b">1.1. Synopsis</a></li>
+<li><a href="#org1679a50">1.2. Tags (<code>TBV</code>, <code>INC</code>, <code>ERR</code>)</a></li>
+<li><a href="#orgeb68f94">1.3. Tabulator <code>&lt;TAB&gt;</code> und Fragezeichen <code>&lt;?&gt;</code></a></li>
 </ul>
 </li>
-<li><a href="#orgc23b100">2. Konsolenverbindung herstellen</a>
+<li><a href="#org4a47efc">2. Konsolenverbindung herstellen</a>
 <ul>
-<li><a href="#orgc0ada0b">2.1. Mac OS</a>
+<li><a href="#org3f6fb28">2.1. Mac OS</a>
 <ul>
-<li><a href="#orgde8cff6">2.1.1. Serielle Verbindung</a></li>
-<li><a href="#orgbf1c651">2.1.2. <span class="todo TBV">TBV</span> SSH Verbindung</a></li>
+<li><a href="#orgdab97c0">2.1.1. Serielle Verbindung</a></li>
+<li><a href="#org44b321b">2.1.2. <span class="todo TBV">TBV</span> SSH Verbindung</a></li>
 </ul>
 </li>
-<li><a href="#orga6ec0dd">2.2. Linux</a>
+<li><a href="#orgf0c1616">2.2. Linux</a>
 <ul>
-<li><a href="#org1040f03">2.2.1. Serielle Verbindung</a></li>
-<li><a href="#org37f94b7">2.2.2. SSH Verbindung</a></li>
+<li><a href="#orgae8ca15">2.2.1. Serielle Verbindung</a></li>
+<li><a href="#org819e4e2">2.2.2. SSH Verbindung</a></li>
 </ul>
 </li>
-<li><a href="#orgbb48dd0">2.3. Windows</a>
+<li><a href="#orgb062bcc">2.3. Windows</a>
 <ul>
-<li><a href="#orge6dff9c">2.3.1. Serielle Verbindung</a></li>
-<li><a href="#orgb5be231">2.3.2. <span class="todo TBV">TBV</span> SSH Verbindung</a></li>
+<li><a href="#orge2b7758">2.3.1. Serielle Verbindung</a></li>
+<li><a href="#org505fed8">2.3.2. <span class="todo TBV">TBV</span> SSH Verbindung</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgeca8a4a">3. Switch (HP 2530-24G)</a>
+<li><a href="#org6a86c91">3. Switch (HP 2530-24G)</a>
 <ul>
-<li><a href="#org326f77f">3.1. Zurücksetzen</a>
+<li><a href="#org860dce2">3.1. Zurücksetzen</a>
 <ul>
-<li><a href="#org7262ff2">3.1.1. Löschen der aktuellen Konfiguration</a></li>
-<li><a href="#orgd54589d">3.1.2. Reset via <code>Monitor ROM Console</code></a></li>
-<li><a href="#org6249dd2">3.1.3. Hardreset (!)</a></li>
+<li><a href="#org848bb5f">3.1.1. Löschen der aktuellen Konfiguration</a></li>
+<li><a href="#orgdbcfa00">3.1.2. Reset via <code>Monitor ROM Console</code></a></li>
+<li><a href="#orge6230cd">3.1.3. Hardreset (!)</a></li>
 </ul>
 </li>
-<li><a href="#org2ab173f">3.2. Modes</a></li>
-<li><a href="#org6888b5b">3.3. Default Boot Image wählen</a></li>
-<li><a href="#orgb69ca22">3.4. Config File</a>
+<li><a href="#org2e547f5">3.2. Modes</a></li>
+<li><a href="#orgceeba00">3.3. Default Boot Image wählen</a></li>
+<li><a href="#orge5cb033">3.4. Config File</a>
 <ul>
-<li><a href="#org44e52eb">3.4.1. Anzeigen</a></li>
-<li><a href="#org776d372">3.4.2. Zurücksetzen</a></li>
-<li><a href="#org647b066">3.4.3. Speichern</a></li>
-<li><a href="#org6532813">3.4.4. Backup</a></li>
-<li><a href="#orgc4f887a">3.4.5. Restore</a></li>
+<li><a href="#orga8d5ea9">3.4.1. Anzeigen</a></li>
+<li><a href="#org03bc3f2">3.4.2. Zurücksetzen</a></li>
+<li><a href="#org0c1f541">3.4.3. Speichern</a></li>
+<li><a href="#org496e131">3.4.4. Backup</a></li>
+<li><a href="#orgd1aa0c6">3.4.5. Restore</a></li>
 </ul>
 </li>
-<li><a href="#orgeb4acbd">3.5. IP</a>
+<li><a href="#org44dc0f2">3.5. IP</a>
 <ul>
-<li><a href="#org7a78631">3.5.1. Statisch</a></li>
-<li><a href="#org6b3191a">3.5.2. Dynamisch</a></li>
+<li><a href="#org9a0bec3">3.5.1. Statisch</a></li>
+<li><a href="#org36e6a18">3.5.2. Dynamisch</a></li>
 </ul>
 </li>
-<li><a href="#orgbd86279">3.6. SSH Zugang</a></li>
-<li><a href="#org47089c0">3.7. MAC-Address-Table</a></li>
-<li><a href="#org5bd3d21">3.8. Mirror Port</a></li>
-<li><a href="#org821c5fc">3.9. Spanning Tree</a></li>
+<li><a href="#org1a851fa">3.6. SSH Zugang</a></li>
+<li><a href="#org35b6eed">3.7. MAC-Address-Table</a></li>
+<li><a href="#orgc367798">3.8. Mirror Port</a></li>
+<li><a href="#org942cb11">3.9. Spanning Tree</a></li>
 </ul>
 </li>
-<li><a href="#orgbbf86f5">4. Router (HP MSR 1003)</a>
+<li><a href="#org78b4ff6">4. Router (HP MSR 1003)</a>
 <ul>
-<li><a href="#org330a1e6">4.1. Modes</a></li>
-<li><a href="#org93cb25e">4.2. Config File</a>
+<li><a href="#orgec5a6be">4.1. Modes</a></li>
+<li><a href="#org408ea9f">4.2. Config File</a>
 <ul>
-<li><a href="#org2bdafda">4.2.1. Anzeigen</a></li>
-<li><a href="#org3fadd11">4.2.2. Zurücksetzen</a></li>
-<li><a href="#org8c5cbfc">4.2.3. Speichern</a></li>
-<li><a href="#org4d35ce2">4.2.4. Backup</a></li>
+<li><a href="#org8fc4b7c">4.2.1. Anzeigen</a></li>
+<li><a href="#org513e6a4">4.2.2. Zurücksetzen</a></li>
+<li><a href="#org6ae8827">4.2.3. Speichern</a></li>
+<li><a href="#org263725e">4.2.4. Backup</a></li>
 </ul>
 </li>
-<li><a href="#orgd8f0b5d">4.3. <span class="todo TBV">TBV</span> IP</a></li>
-<li><a href="#org844d44d">4.4. <span class="todo TBV">TBV</span> SSH Zugang</a></li>
+<li><a href="#orga220ce2">4.3. <span class="todo TBV">TBV</span> IP</a></li>
+<li><a href="#orga8ebe3a">4.4. <span class="todo TBV">TBV</span> SSH Zugang</a></li>
 </ul>
 </li>
-<li><a href="#orgde9cb5c">5. Credits</a></li>
+<li><a href="#org5d024f8">5. Credits</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga4dc9c7" class="outline-2">
-<h2 id="orga4dc9c7"><span class="section-number-2">1.</span> Über diese Dokumentation</h2>
+<div id="outline-container-org16cd822" class="outline-2">
+<h2 id="org16cd822"><span class="section-number-2">1.</span> Über diese Dokumentation</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Diese Dokumentation dient dem Laborunterricht an der <a href="https://www.eke.at">Tiroler Fachberufsschule für Elektrotechnik, Kommunikation und Elektronik (tfbs-eke)</a> in den IT-Berufen.
@@ -125,13 +125,13 @@ Diese Dokumentation ist Work-In-Progress und kann (wird!) "Fehler" enthalten und
 </p>
 </div>
 
-<div id="outline-container-org28e6b12" class="outline-3">
-<h3 id="org28e6b12"><span class="section-number-3">1.1.</span> Synopsis</h3>
+<div id="outline-container-org81aed7b" class="outline-3">
+<h3 id="org81aed7b"><span class="section-number-3">1.1.</span> Synopsis</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 Befehle werden folgendermaßen Dargestellt:
 </p>
-<pre class="example" id="orge049b9c">
+<pre class="example" id="org2f7c8ad">
 (config)# vlan  VLAN
 (vlan-1)# ip address  IP  SNM
 </pre>
@@ -143,15 +143,15 @@ am Anfang der Zeile steht immer der für den Befehl (hier: <code>vlan</code> bzw
 <p>
 Die Parameter (meist in Großbuchstaben und mit doppelten Leerzeichen eingefasst) müssen durch die gewünschten "Werte" ersetzt werden. Die Tatsächliche Eingabe sieht dann beispielsweise so aus:
 </p>
-<pre class="example" id="org9c43e59">
+<pre class="example" id="org16516cd">
 (config)# vlan 1
 (vlan-1)# ip address 192.168.42.1 255.255.255.0
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org53e621d" class="outline-3">
-<h3 id="org53e621d"><span class="section-number-3">1.2.</span> Tags (<code>TBV</code>, <code>INC</code>, <code>ERR</code>)</h3>
+<div id="outline-container-org1679a50" class="outline-3">
+<h3 id="org1679a50"><span class="section-number-3">1.2.</span> Tags (<code>TBV</code>, <code>INC</code>, <code>ERR</code>)</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 Der Tag <b><code>TBV</code></b> in einer Überschrift steht für <code>*T*o *B*e *V*erified</code> und bedeutet, dass der folgende Abschnitt nicht ausreichend getestet ist.
@@ -167,8 +167,8 @@ Der Tag <b><code>ERR</code></b> in einer Überschrift steht für <code>*Err*or</
 </div>
 </div>
 
-<div id="outline-container-org2536208" class="outline-3">
-<h3 id="org2536208"><span class="section-number-3">1.3.</span> Tabulator <code>&lt;TAB&gt;</code> und Fragezeichen <code>&lt;?&gt;</code></h3>
+<div id="outline-container-orgeb68f94" class="outline-3">
+<h3 id="orgeb68f94"><span class="section-number-3">1.3.</span> Tabulator <code>&lt;TAB&gt;</code> und Fragezeichen <code>&lt;?&gt;</code></h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 Bei der Abreit mit dem <b><code>CLI</code></b> (Command Line Interface) sollte man sich unbeding angewöhnen viel <code>TAB</code> und <code>?</code> zu verwenden.
@@ -182,7 +182,7 @@ Bei der Abreit mit dem <b><code>CLI</code></b> (Command Line Interface) sollte m
 <p>
 Beispiel:
 </p>
-<pre class="example" id="org5f7b3fb">
+<pre class="example" id="org99199f2">
 (vlan-1)# ip &lt;?&gt;
   access-group          Apply the specified IPv4 ACL on this VLAN interface.
   address               Set IP parameters for communication within an IP 
@@ -200,18 +200,18 @@ Beispiel:
 </div>
 </div>
 
-<div id="outline-container-orgc23b100" class="outline-2">
-<h2 id="orgc23b100"><span class="section-number-2">2.</span> Konsolenverbindung herstellen</h2>
+<div id="outline-container-org4a47efc" class="outline-2">
+<h2 id="org4a47efc"><span class="section-number-2">2.</span> Konsolenverbindung herstellen</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgc0ada0b" class="outline-3">
-<h3 id="orgc0ada0b"><span class="section-number-3">2.1.</span> Mac OS</h3>
+<div id="outline-container-org3f6fb28" class="outline-3">
+<h3 id="org3f6fb28"><span class="section-number-3">2.1.</span> Mac OS</h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
-<div id="outline-container-orgde8cff6" class="outline-4">
-<h4 id="orgde8cff6"><span class="section-number-4">2.1.1.</span> Serielle Verbindung</h4>
+<div id="outline-container-orgdab97c0" class="outline-4">
+<h4 id="orgdab97c0"><span class="section-number-4">2.1.1.</span> Serielle Verbindung</h4>
 <div class="outline-text-4" id="text-2-1-1">
-<pre class="example" id="org51c6818">
+<pre class="example" id="org5414d5c">
 $ sudo screen /dev/cu.usbserial-110
 </pre>
 
@@ -235,24 +235,24 @@ Die Gewünschte Gerätedatei ist jene, die beim Ein-/Ausstecken des USB-Seriell-
 </div>
 </div>
 
-<div id="outline-container-orgbf1c651" class="outline-4">
-<h4 id="orgbf1c651"><span class="section-number-4">2.1.2.</span> <span class="todo TBV">TBV</span> SSH Verbindung</h4>
+<div id="outline-container-org44b321b" class="outline-4">
+<h4 id="org44b321b"><span class="section-number-4">2.1.2.</span> <span class="todo TBV">TBV</span> SSH Verbindung</h4>
 <div class="outline-text-4" id="text-2-1-2">
-<pre class="example" id="orgcc68460">
+<pre class="example" id="org63e12d0">
 $ ssh  IP
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga6ec0dd" class="outline-3">
-<h3 id="orga6ec0dd"><span class="section-number-3">2.2.</span> Linux</h3>
+<div id="outline-container-orgf0c1616" class="outline-3">
+<h3 id="orgf0c1616"><span class="section-number-3">2.2.</span> Linux</h3>
 <div class="outline-text-3" id="text-2-2">
 </div>
-<div id="outline-container-org1040f03" class="outline-4">
-<h4 id="org1040f03"><span class="section-number-4">2.2.1.</span> Serielle Verbindung</h4>
+<div id="outline-container-orgae8ca15" class="outline-4">
+<h4 id="orgae8ca15"><span class="section-number-4">2.2.1.</span> Serielle Verbindung</h4>
 <div class="outline-text-4" id="text-2-2-1">
-<pre class="example" id="org760ef62">
+<pre class="example" id="orgeaddd03">
 $ sudo screen /dev/ttyUSB0
 </pre>
 
@@ -270,13 +270,13 @@ Zum beenden der Verbindung: <code>Ctrl-a \</code>
 </div>
 </div>
 
-<div id="outline-container-org37f94b7" class="outline-4">
-<h4 id="org37f94b7"><span class="section-number-4">2.2.2.</span> SSH Verbindung</h4>
+<div id="outline-container-org819e4e2" class="outline-4">
+<h4 id="org819e4e2"><span class="section-number-4">2.2.2.</span> SSH Verbindung</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <p>
 Aufgrund von "veralteten" Schlüsselaustausch und Verschlüsselungsverfahren seitens des Switches funktioniert ein einfaches
 </p>
-<pre class="example" id="orgcdac82a">
+<pre class="example" id="org24fcfc4">
 $ ssh  IP
 </pre>
 <p>
@@ -286,19 +286,19 @@ nicht.
 <p>
 Die Lösung sieht dann so, oder so ähnlich aus:
 </p>
-<pre class="example" id="org04cca42">
+<pre class="example" id="org7ec51a8">
 $ ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 -oHostKeyAlgorithms=ssh-rsa   IP
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbb48dd0" class="outline-3">
-<h3 id="orgbb48dd0"><span class="section-number-3">2.3.</span> Windows</h3>
+<div id="outline-container-orgb062bcc" class="outline-3">
+<h3 id="orgb062bcc"><span class="section-number-3">2.3.</span> Windows</h3>
 <div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-orge6dff9c" class="outline-4">
-<h4 id="orge6dff9c"><span class="section-number-4">2.3.1.</span> Serielle Verbindung</h4>
+<div id="outline-container-orge2b7758" class="outline-4">
+<h4 id="orge2b7758"><span class="section-number-4">2.3.1.</span> Serielle Verbindung</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 Am besten mittels <a href="https://putty.org/">PuTTY</a>. Dort "Serial" auswählen, den COM-Port eingeben und "Open" klicken.
@@ -306,8 +306,8 @@ Am besten mittels <a href="https://putty.org/">PuTTY</a>. Dort "Serial" auswähl
 </div>
 </div>
 
-<div id="outline-container-orgb5be231" class="outline-4">
-<h4 id="orgb5be231"><span class="section-number-4">2.3.2.</span> <span class="todo TBV">TBV</span> SSH Verbindung</h4>
+<div id="outline-container-org505fed8" class="outline-4">
+<h4 id="org505fed8"><span class="section-number-4">2.3.2.</span> <span class="todo TBV">TBV</span> SSH Verbindung</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 Entweder mittels <a href="https://putty.org/">PuTTY</a>. Dort "SSH" auswählen, die IP-Adresse des Switches und den Port (standardmäßig: <code>22</code>) eingeben und "Open" klicken.
@@ -316,7 +316,7 @@ Entweder mittels <a href="https://putty.org/">PuTTY</a>. Dort "SSH" auswählen, 
 <p>
 Oder über <code>cmd</code> bzw. <code>PowerShell</code>:
 </p>
-<pre class="example" id="org9288d2a">
+<pre class="example" id="orga5939e0">
 C:\&gt; ssh  IP
 </pre>
 </div>
@@ -324,36 +324,36 @@ C:\&gt; ssh  IP
 </div>
 </div>
 
-<div id="outline-container-orgeca8a4a" class="outline-2">
-<h2 id="orgeca8a4a"><span class="section-number-2">3.</span> Switch (HP 2530-24G)</h2>
+<div id="outline-container-org6a86c91" class="outline-2">
+<h2 id="org6a86c91"><span class="section-number-2">3.</span> Switch (HP 2530-24G)</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org326f77f" class="outline-3">
-<h3 id="org326f77f"><span class="section-number-3">3.1.</span> Zurücksetzen</h3>
+<div id="outline-container-org860dce2" class="outline-3">
+<h3 id="org860dce2"><span class="section-number-3">3.1.</span> Zurücksetzen</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 Vor und nach jeder Laborübung sollten die Switches zurückgesetzt werden, damit jede:r Schüler:in mit einem <i>frischen</i> (unkonfigurierten) Switch arbeiten kann.
 </p>
 </div>
 
-<div id="outline-container-org7262ff2" class="outline-4">
-<h4 id="org7262ff2"><span class="section-number-4">3.1.1.</span> Löschen der aktuellen Konfiguration</h4>
+<div id="outline-container-org848bb5f" class="outline-4">
+<h4 id="org848bb5f"><span class="section-number-4">3.1.1.</span> Löschen der aktuellen Konfiguration</h4>
 <div class="outline-text-4" id="text-3-1-1">
-<pre class="example" id="org09fa198">
+<pre class="example" id="orgef241ad">
 # erase startup-config
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orgd54589d" class="outline-4">
-<h4 id="orgd54589d"><span class="section-number-4">3.1.2.</span> Reset via <code>Monitor ROM Console</code></h4>
+<div id="outline-container-orgdbcfa00" class="outline-4">
+<h4 id="orgdbcfa00"><span class="section-number-4">3.1.2.</span> Reset via <code>Monitor ROM Console</code></h4>
 <div class="outline-text-4" id="text-3-1-2">
 <p>
 Serielle Verbindung aufbauen bevor der Switch eingeschaltet (eingesteckt) wurde.
 Beim Bootvorgang nach aufforderung <code>0. Monitor ROM Console</code> wählen ("schnell" automatisch wird typischerweise <code>1. Primary Software Image</code> nach wenigen Sekunden ausgewählt).
 </p>
 
-<pre class="example" id="orgeb30308">
+<pre class="example" id="org44266c8">
 =&gt; erase-all
 </pre>
 
@@ -363,8 +363,8 @@ Dann bootet der Switch neu und es sollte kein Username/Passwort mehr gesetzt sei
 </div>
 </div>
 
-<div id="outline-container-org6249dd2" class="outline-4">
-<h4 id="org6249dd2"><span class="section-number-4">3.1.3.</span> Hardreset (!)</h4>
+<div id="outline-container-orge6230cd" class="outline-4">
+<h4 id="orge6230cd"><span class="section-number-4">3.1.3.</span> Hardreset (!)</h4>
 <div class="outline-text-4" id="text-3-1-3">
 <p>
 <b>Achtung!</b> Das sollte nur die letzte Möglichkeit sein! Wenn irgendwie möglich sollten die Switches Softwaremäßig (Löschen der Konfiguration, Booten der ROM Console, &#x2026;) zurückgesetzt werden.
@@ -381,20 +381,20 @@ Dann bootet der Switch neu und es sollte kein Username/Passwort mehr gesetzt sei
 </div>
 
 
-<div id="outline-container-org2ab173f" class="outline-3">
-<h3 id="org2ab173f"><span class="section-number-3">3.2.</span> Modes</h3>
+<div id="outline-container-org2e547f5" class="outline-3">
+<h3 id="org2e547f5"><span class="section-number-3">3.2.</span> Modes</h3>
 <div class="outline-text-3" id="text-3-2">
-<pre class="example" id="org5dc0b86">
+<pre class="example" id="orga8b03b4">
 # system-view
 (config)#
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org6888b5b" class="outline-3">
-<h3 id="org6888b5b"><span class="section-number-3">3.3.</span> Default Boot Image wählen</h3>
+<div id="outline-container-orgceeba00" class="outline-3">
+<h3 id="orgceeba00"><span class="section-number-3">3.3.</span> Default Boot Image wählen</h3>
 <div class="outline-text-3" id="text-3-3">
-<pre class="example" id="orgeadb389">
+<pre class="example" id="orgddd61cd">
 # boot set-default flash  IMAGE
 </pre>
 <p>
@@ -403,106 +403,106 @@ Für <code>IMAGE</code> muss <code>primary</code> oder <code>secondary</code> au
 </div>
 </div>
 
-<div id="outline-container-orgb69ca22" class="outline-3">
-<h3 id="orgb69ca22"><span class="section-number-3">3.4.</span> Config File</h3>
+<div id="outline-container-orge5cb033" class="outline-3">
+<h3 id="orge5cb033"><span class="section-number-3">3.4.</span> Config File</h3>
 <div class="outline-text-3" id="text-3-4">
 </div>
-<div id="outline-container-org44e52eb" class="outline-4">
-<h4 id="org44e52eb"><span class="section-number-4">3.4.1.</span> Anzeigen</h4>
+<div id="outline-container-orga8d5ea9" class="outline-4">
+<h4 id="orga8d5ea9"><span class="section-number-4">3.4.1.</span> Anzeigen</h4>
 <div class="outline-text-4" id="text-3-4-1">
-<pre class="example" id="org6d0fb25">
+<pre class="example" id="orgacdbf60">
 # display current-configuration
 </pre>
 </div>
 </div>
-<div id="outline-container-org776d372" class="outline-4">
-<h4 id="org776d372"><span class="section-number-4">3.4.2.</span> Zurücksetzen</h4>
+<div id="outline-container-org03bc3f2" class="outline-4">
+<h4 id="org03bc3f2"><span class="section-number-4">3.4.2.</span> Zurücksetzen</h4>
 <div class="outline-text-4" id="text-3-4-2">
-<pre class="example" id="org5d2915a">
+<pre class="example" id="org78d800e">
 # erase startup-config
 </pre>
 </div>
 </div>
-<div id="outline-container-org647b066" class="outline-4">
-<h4 id="org647b066"><span class="section-number-4">3.4.3.</span> Speichern</h4>
+<div id="outline-container-org0c1f541" class="outline-4">
+<h4 id="org0c1f541"><span class="section-number-4">3.4.3.</span> Speichern</h4>
 <div class="outline-text-4" id="text-3-4-3">
-<pre class="example" id="org41b6945">
+<pre class="example" id="orgdedbf38">
 # wr mem
 </pre>
 </div>
 </div>
-<div id="outline-container-org6532813" class="outline-4">
-<h4 id="org6532813"><span class="section-number-4">3.4.4.</span> Backup</h4>
+<div id="outline-container-org496e131" class="outline-4">
+<h4 id="org496e131"><span class="section-number-4">3.4.4.</span> Backup</h4>
 <div class="outline-text-4" id="text-3-4-4">
-<pre class="example" id="orgdfb5ce0">
+<pre class="example" id="org258a9df">
 # copy startup-config tftp  IP  FILENAME
 </pre>
 </div>
 </div>
-<div id="outline-container-orgc4f887a" class="outline-4">
-<h4 id="orgc4f887a"><span class="section-number-4">3.4.5.</span> Restore</h4>
+<div id="outline-container-orgd1aa0c6" class="outline-4">
+<h4 id="orgd1aa0c6"><span class="section-number-4">3.4.5.</span> Restore</h4>
 <div class="outline-text-4" id="text-3-4-5">
-<pre class="example" id="org3fb6f13">
+<pre class="example" id="orgf88ab78">
 # copy tftp running-config  IP  FILENAME
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgeb4acbd" class="outline-3">
-<h3 id="orgeb4acbd"><span class="section-number-3">3.5.</span> IP</h3>
+<div id="outline-container-org44dc0f2" class="outline-3">
+<h3 id="org44dc0f2"><span class="section-number-3">3.5.</span> IP</h3>
 <div class="outline-text-3" id="text-3-5">
 </div>
-<div id="outline-container-org7a78631" class="outline-4">
-<h4 id="org7a78631"><span class="section-number-4">3.5.1.</span> Statisch</h4>
+<div id="outline-container-org9a0bec3" class="outline-4">
+<h4 id="org9a0bec3"><span class="section-number-4">3.5.1.</span> Statisch</h4>
 <div class="outline-text-4" id="text-3-5-1">
-<pre class="example" id="orge13fc95">
+<pre class="example" id="org81d0072">
 (config)# vlan  VLAN
 (vlan-1)# ip address  IP  SNM
 </pre>
 </div>
 </div>
-<div id="outline-container-org6b3191a" class="outline-4">
-<h4 id="org6b3191a"><span class="section-number-4">3.5.2.</span> Dynamisch</h4>
+<div id="outline-container-org36e6a18" class="outline-4">
+<h4 id="org36e6a18"><span class="section-number-4">3.5.2.</span> Dynamisch</h4>
 <div class="outline-text-4" id="text-3-5-2">
-<pre class="example" id="org7eb17ab">
+<pre class="example" id="orgf1acbd7">
 (config)# vlan 1
 (vlan-1)# ip dhcp-bootp
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgbd86279" class="outline-3">
-<h3 id="orgbd86279"><span class="section-number-3">3.6.</span> SSH Zugang</h3>
+<div id="outline-container-org1a851fa" class="outline-3">
+<h3 id="org1a851fa"><span class="section-number-3">3.6.</span> SSH Zugang</h3>
 <div class="outline-text-3" id="text-3-6">
-<pre class="example" id="orgbe37eac">
+<pre class="example" id="orgf6ccf7a">
 (config)# crypto key generate ssh rsa
 (config)# ip ssh
 (config)# show crypto host-public-key fingerprint
 </pre>
 </div>
 </div>
-<div id="outline-container-org47089c0" class="outline-3">
-<h3 id="org47089c0"><span class="section-number-3">3.7.</span> MAC-Address-Table</h3>
+<div id="outline-container-org35b6eed" class="outline-3">
+<h3 id="org35b6eed"><span class="section-number-3">3.7.</span> MAC-Address-Table</h3>
 <div class="outline-text-3" id="text-3-7">
-<pre class="example" id="orgbca75d1">
+<pre class="example" id="org4528613">
 # show mac-address
 </pre>
 </div>
 </div>
-<div id="outline-container-org5bd3d21" class="outline-3">
-<h3 id="org5bd3d21"><span class="section-number-3">3.8.</span> Mirror Port</h3>
+<div id="outline-container-orgc367798" class="outline-3">
+<h3 id="orgc367798"><span class="section-number-3">3.8.</span> Mirror Port</h3>
 <div class="outline-text-3" id="text-3-8">
 <p>
 Einstellen auf welchen Port hin gespiegelt werden soll:
 </p>
-<pre class="example" id="org614fa26">
+<pre class="example" id="orgc23ad1e">
 (config)# mirror-port  PORT
 </pre>
 
 <p>
 Einstellen welcher Port gespiegelt werden soll:
 </p>
-<pre class="example" id="org7defea0">
+<pre class="example" id="org12b634a">
 (config)# interface  INTERFACE
 (eth-1)# monitor
 </pre>
@@ -510,7 +510,7 @@ Einstellen welcher Port gespiegelt werden soll:
 <p>
 Beispiel:
 </p>
-<pre class="example" id="org90c82bf">
+<pre class="example" id="org9176797">
 (config)# mirror-port 24
 (config)# interface 1
 (eth-1)# monitor
@@ -523,95 +523,102 @@ Port 24 "überwacht" die Kommunikation von Port 1.
 </div>
 </div>
 
-<div id="outline-container-org821c5fc" class="outline-3">
-<h3 id="org821c5fc"><span class="section-number-3">3.9.</span> Spanning Tree</h3>
+<div id="outline-container-org942cb11" class="outline-3">
+<h3 id="org942cb11"><span class="section-number-3">3.9.</span> Spanning Tree</h3>
 <div class="outline-text-3" id="text-3-9">
-<pre class="example" id="org5e9c23b">
+<pre class="example" id="orgb4599a9">
 (config)# spanning-tree enable
 </pre>
-<pre class="example" id="orgf44d2a0">
+<pre class="example" id="orgc61a166">
 (config)# spanning-tree disable
 </pre>
-<pre class="example" id="org5234eac">
+<pre class="example" id="org206f08a">
 # show spanning-tree
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbbf86f5" class="outline-2">
-<h2 id="orgbbf86f5"><span class="section-number-2">4.</span> Router (HP MSR 1003)</h2>
+<div id="outline-container-org78b4ff6" class="outline-2">
+<h2 id="org78b4ff6"><span class="section-number-2">4.</span> Router (HP MSR 1003)</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org330a1e6" class="outline-3">
-<h3 id="org330a1e6"><span class="section-number-3">4.1.</span> Modes</h3>
+<div id="outline-container-orgec5a6be" class="outline-3">
+<h3 id="orgec5a6be"><span class="section-number-3">4.1.</span> Modes</h3>
 <div class="outline-text-3" id="text-4-1">
-<pre class="example" id="org341f44a">
+<pre class="example" id="org88297da">
 () system-view
 []
 </pre>
 </div>
 </div>
-<div id="outline-container-org93cb25e" class="outline-3">
-<h3 id="org93cb25e"><span class="section-number-3">4.2.</span> Config File</h3>
+<div id="outline-container-org408ea9f" class="outline-3">
+<h3 id="org408ea9f"><span class="section-number-3">4.2.</span> Config File</h3>
 <div class="outline-text-3" id="text-4-2">
 </div>
-<div id="outline-container-org2bdafda" class="outline-4">
-<h4 id="org2bdafda"><span class="section-number-4">4.2.1.</span> Anzeigen</h4>
+<div id="outline-container-org8fc4b7c" class="outline-4">
+<h4 id="org8fc4b7c"><span class="section-number-4">4.2.1.</span> Anzeigen</h4>
 <div class="outline-text-4" id="text-4-2-1">
-<pre class="example" id="org3cce350">
+<pre class="example" id="org4faf962">
 # display current-configuration
 </pre>
 </div>
 </div>
-<div id="outline-container-org3fadd11" class="outline-4">
-<h4 id="org3fadd11"><span class="section-number-4">4.2.2.</span> Zurücksetzen</h4>
+<div id="outline-container-org513e6a4" class="outline-4">
+<h4 id="org513e6a4"><span class="section-number-4">4.2.2.</span> Zurücksetzen</h4>
 <div class="outline-text-4" id="text-4-2-2">
-<pre class="example" id="org9a4c600">
+<pre class="example" id="org4896078">
 # erase startup.cfg
 </pre>
 </div>
 </div>
-<div id="outline-container-org8c5cbfc" class="outline-4">
-<h4 id="org8c5cbfc"><span class="section-number-4">4.2.3.</span> Speichern</h4>
+<div id="outline-container-org6ae8827" class="outline-4">
+<h4 id="org6ae8827"><span class="section-number-4">4.2.3.</span> Speichern</h4>
 <div class="outline-text-4" id="text-4-2-3">
-<pre class="example" id="orgee922f0">
+<pre class="example" id="org7aa5aef">
 # write main
 </pre>
 </div>
 </div>
-<div id="outline-container-org4d35ce2" class="outline-4">
-<h4 id="org4d35ce2"><span class="section-number-4">4.2.4.</span> Backup</h4>
+<div id="outline-container-org263725e" class="outline-4">
+<h4 id="org263725e"><span class="section-number-4">4.2.4.</span> Backup</h4>
 <div class="outline-text-4" id="text-4-2-4">
-<pre class="example" id="org229ad0d">
+<pre class="example" id="orgf0fdaf1">
 # backup startup-configuration to  IP  FILENAME
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd8f0b5d" class="outline-3">
-<h3 id="orgd8f0b5d"><span class="section-number-3">4.3.</span> <span class="todo TBV">TBV</span> IP</h3>
+<div id="outline-container-orga220ce2" class="outline-3">
+<h3 id="orga220ce2"><span class="section-number-3">4.3.</span> <span class="todo TBV">TBV</span> IP</h3>
 <div class="outline-text-3" id="text-4-3">
-<pre class="example" id="org31a4372">
+<pre class="example" id="orge7be060">
 [] interface gigabitethernet x/x
 [GE-1/1] ip address  IP  SNM
 </pre>
 </div>
 </div>
-<div id="outline-container-org844d44d" class="outline-3">
-<h3 id="org844d44d"><span class="section-number-3">4.4.</span> <span class="todo TBV">TBV</span> SSH Zugang</h3>
+<div id="outline-container-orga8ebe3a" class="outline-3">
+<h3 id="orga8ebe3a"><span class="section-number-3">4.4.</span> <span class="todo TBV">TBV</span> SSH Zugang</h3>
 <div class="outline-text-3" id="text-4-4">
-<pre class="example" id="orgec6da09">
-(config)# crypto key generate ssh rsa
-(config)# ip ssh
-(config)# show crypto host-public-key fingerprint
+<ol class="org-ol">
+<li>SSH-Benutzer erstellen und Passwort vergeben</li>
+</ol>
+<pre class="example" id="org4d07d75">
+[] local-user  USERNAME
+[USERNAME] password simple  PASSWORD
+[USERNAME] authorization-attribute user-role network-admin
+[USERNAME] service-type ssh
+[USERNAME] exit
+[] public-key local create 
+[] ssh server enable
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgde9cb5c" class="outline-2">
-<h2 id="orgde9cb5c"><span class="section-number-2">5.</span> Credits</h2>
+<div id="outline-container-org5d024f8" class="outline-2">
+<h2 id="org5d024f8"><span class="section-number-2">5.</span> Credits</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 Vielen Dank an alle Kolleg:innen und Schüler:innen die sich bei der Erstellung und Verbesserung dieser Doku beteiligt haben!
@@ -624,18 +631,19 @@ Diese Doku basiert ursprünglich (und zu großen Teilen) auf einer Doku die von 
 <p>
 Special Thanks an:
 </p>
-<pre class="example" id="org5efa96d">
+<pre class="example" id="orgbbab205">
 Hansjörg Agerer
 Martin Amann
 Alexandra Aurora Göttlicher
 Marcel Haidner
+Alexander Kircher
 </pre>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Autor: Lukas Singer</p>
-<p class="date">Created: 2024-05-22 Mi 14:36</p>
+<p class="date">Created: 2024-05-22 Mi 15:12</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
