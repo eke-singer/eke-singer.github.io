@@ -3,16 +3,17 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
 <head>
-<!-- 2024-05-17 Fr 13:38 -->
+<!-- 2024-05-22 Mi 10:42 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RSA-Kryptosystem</title>
 <meta name="author" content="Lukas Singer" />
 <meta name="description" content="Theorie und Beispiel zu RSA Berechnungen (Schlüssel generieren, Ver- und Entschlüsseln)" />
 <meta name="generator" content="Org Mode" />
-<style type="text/css">
-article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block}audio,canvas,video{display:inline-block}audio:not([controls]){display:none;height:0}[hidden]{display:none}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}a:focus{outline:thin dotted}a:active,a:hover{outline:0}h1{font-size:2em}abbr[title]{border-bottom:1px dotted}b,strong{font-weight:bold}dfn{font-style:italic}mark{background:#ff0;color:#000}code,kbd,pre,samp{font-family:monospace,sans-serif;font-size:1em}pre{white-space:pre-wrap;word-wrap:break-word}q{quotes:"\201C" "\201D" "\2018" "\2019"}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}img{border:0}svg:not(:root){overflow:hidden}figure{margin:0}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}legend{border:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}button,input{line-height:normal}button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}button[disabled],input[disabled]{cursor:default}input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}input[type="search"]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration{-webkit-appearance:none}button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}textarea{overflow:auto;vertical-align:top}table{border-collapse:collapse;border-spacing:0}html{font-family:'PT Sans',sans-serif}pre,code{font-family:monospace,serif}h1,h2,h3,h4,h5,h6{font-family:'PT Sans Narrow',sans-serif;font-weight:700}html{background-color:#073642;color:#839496;margin:1em}body{background-color:#002b36;margin:0 auto;max-width:23cm;border:1pt solid #586e75;padding:1em}code{background-color:#073642;padding:2px}a{color:#b58900}a:visited{color:#cb4b16}a:hover{color:#cb4b16}h1{color:#d33682}h2,h3,h4,h5,h6{color:#859900}pre{background-color:#002b36;color:#839496;border:1pt solid #586e75;padding:1em;box-shadow:5pt 5pt 8pt #073642}pre code{background-color:#002b36}h1{font-size:2.8em}h2{font-size:2.4em}h3{font-size:1.8em}h4{font-size:1.4em}h5{font-size:1.3em}h6{font-size:1.15em}.tag{background-color:#073642;color:#d33682;padding:0 .2em}.todo,.next,.done{color:#002b36;background-color:#dc322f;padding:0 .2em}.tag{-webkit-border-radius:.35em;-moz-border-radius:.35em;border-radius:.35em}.TODO{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#2aa198}.NEXT{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#268bd2}.ACTIVE{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#268bd2}.DONE{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#859900}.WAITING{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#cb4b16}.HOLD{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#d33682}.NOTE{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#d33682}.CANCELLED{-webkit-border-radius:.2em;-moz-border-radius:.2em;border-radius:.2em;background-color:#859900}
-</style>
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/stackoverflow-dark.min.css">
+<script src="scripts/highlight.min.js"></script>
+<script src="scripts/main.js"></script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         displayAlign: "center",
@@ -46,22 +47,22 @@ article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary
 <h2>Inhaltsverzeichnis</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org12b435e">1. Mathematische Grundlagen</a>
+<li><a href="#org07699f3">1. Mathematische Grundlagen</a>
 <ul>
-<li><a href="#org51a6787">1.1. Primzahlen</a>
+<li><a href="#org56767aa">1.1. Primzahlen</a>
 <ul>
-<li><a href="#org78374c6">1.1.1. Sieb des Eratosthenes</a></li>
-<li><a href="#org59cc931">1.1.2. Euklidischer und erweiterter euklidischer Algorithmus</a></li>
-<li><a href="#org217d978">1.1.3. Eulersche \(\phi\)-Funktion</a></li>
+<li><a href="#orgef0e28d">1.1.1. Sieb des Eratosthenes</a></li>
+<li><a href="#orgd1078c2">1.1.2. Euklidischer und erweiterter euklidischer Algorithmus</a></li>
+<li><a href="#org398269a">1.1.3. Eulersche \(\phi\)-Funktion</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgf9c7248">2. RSA (jetzt aber wirklich)</a>
+<li><a href="#orga095040">2. RSA (jetzt aber wirklich)</a>
 <ul>
-<li><a href="#org22fb398">2.1. Generieren eines Schlüsselpaares (public- und private key)</a></li>
-<li><a href="#org824f152">2.2. Eine Nachricht verschlüsseln</a></li>
-<li><a href="#org11a6d13">2.3. Eine Nachricht entschlüsseln</a></li>
+<li><a href="#org2b8d748">2.1. Generieren eines Schlüsselpaares (public- und private key)</a></li>
+<li><a href="#org76b83d2">2.2. Eine Nachricht verschlüsseln</a></li>
+<li><a href="#orga0bb59f">2.3. Eine Nachricht entschlüsseln</a></li>
 </ul>
 </li>
 </ul>
@@ -76,12 +77,12 @@ Man spricht von <b>public Key</b> (öffentlicher Schlüssel) und <b>private Key<
 Wurde eine Nachricht mit einem Schlüssel eines Schlüsselpaares verschlüsselt, kann diese nur mit dem anderen Schlüssel des Schlüsselpaares entschlüsselt werden.
 </p>
 
-<div id="outline-container-org12b435e" class="outline-2">
-<h2 id="org12b435e"><span class="section-number-2">1.</span> Mathematische Grundlagen</h2>
+<div id="outline-container-org07699f3" class="outline-2">
+<h2 id="org07699f3"><span class="section-number-2">1.</span> Mathematische Grundlagen</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org51a6787" class="outline-3">
-<h3 id="org51a6787"><span class="section-number-3">1.1.</span> Primzahlen</h3>
+<div id="outline-container-org56767aa" class="outline-3">
+<h3 id="org56767aa"><span class="section-number-3">1.1.</span> Primzahlen</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 \[ \mathbb{P} := \{ p \in \mathbb{N} \text{ } | \text{ } p \bmod q \neq 0 \text{ } \forall \text{ } q \in \mathbb{N} \text{ } | \text{ } q > 1 \land q < p \} \]
@@ -92,8 +93,8 @@ Wurde eine Nachricht mit einem Schlüssel eines Schlüsselpaares verschlüsselt,
 </p>
 </div>
 
-<div id="outline-container-org78374c6" class="outline-4">
-<h4 id="org78374c6"><span class="section-number-4">1.1.1.</span> Sieb des Eratosthenes</h4>
+<div id="outline-container-orgef0e28d" class="outline-4">
+<h4 id="orgef0e28d"><span class="section-number-4">1.1.1.</span> Sieb des Eratosthenes</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 Eratosthenes von Kyrene war ein griechischer Gelehrter der ca. 200 vor Christus lebte.
@@ -129,8 +130,8 @@ print(primes[-10:])
 </div>
 </div>
 
-<div id="outline-container-org59cc931" class="outline-4">
-<h4 id="org59cc931"><span class="section-number-4">1.1.2.</span> Euklidischer und erweiterter euklidischer Algorithmus</h4>
+<div id="outline-container-orgd1078c2" class="outline-4">
+<h4 id="orgd1078c2"><span class="section-number-4">1.1.2.</span> Euklidischer und erweiterter euklidischer Algorithmus</h4>
 <div class="outline-text-4" id="text-1-1-2">
 <p>
 Der \( ggT(a, b) \) (sprich: größter gemeinsamer Teiler von \(a\) und \(b\)) ist die größte Zahl die sowohl \(a\) als auch \(b\) ohne Rest teilt.
@@ -339,8 +340,8 @@ ggT(23, 17) = 1 = 23 * 3 + 17 * -4
 </div>
 </div>
 
-<div id="outline-container-org217d978" class="outline-4">
-<h4 id="org217d978"><span class="section-number-4">1.1.3.</span> Eulersche \(\phi\)-Funktion</h4>
+<div id="outline-container-org398269a" class="outline-4">
+<h4 id="org398269a"><span class="section-number-4">1.1.3.</span> Eulersche \(\phi\)-Funktion</h4>
 <div class="outline-text-4" id="text-1-1-3">
 <p>
 Die eulersche \(\phi\)-Funktion (Phi-Funktion) ist eine Zahlentheoretische Funktion.
@@ -368,12 +369,12 @@ Für unser Beispiel mit den Primzahlen \(23\) und \(17\) gilt daher:
 </div>
 </div>
 
-<div id="outline-container-orgf9c7248" class="outline-2">
-<h2 id="orgf9c7248"><span class="section-number-2">2.</span> RSA (jetzt aber wirklich)</h2>
+<div id="outline-container-orga095040" class="outline-2">
+<h2 id="orga095040"><span class="section-number-2">2.</span> RSA (jetzt aber wirklich)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org22fb398" class="outline-3">
-<h3 id="org22fb398"><span class="section-number-3">2.1.</span> Generieren eines Schlüsselpaares (public- und private key)</h3>
+<div id="outline-container-org2b8d748" class="outline-3">
+<h3 id="org2b8d748"><span class="section-number-3">2.1.</span> Generieren eines Schlüsselpaares (public- und private key)</h3>
 <div class="outline-text-3" id="text-2-1">
 <ol class="org-ol">
 <li><p>
@@ -486,8 +487,8 @@ private key = (124615, 703751)
 </div>
 </div>
 
-<div id="outline-container-org824f152" class="outline-3">
-<h3 id="org824f152"><span class="section-number-3">2.2.</span> Eine Nachricht verschlüsseln</h3>
+<div id="outline-container-org76b83d2" class="outline-3">
+<h3 id="org76b83d2"><span class="section-number-3">2.2.</span> Eine Nachricht verschlüsseln</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 Um eine Nachricht zu verschlüsseln wird folgende Formel genutzt:
@@ -514,8 +515,8 @@ wurde  G = 545480
 </div>
 </div>
 
-<div id="outline-container-org11a6d13" class="outline-3">
-<h3 id="org11a6d13"><span class="section-number-3">2.3.</span> Eine Nachricht entschlüsseln</h3>
+<div id="outline-container-orga0bb59f" class="outline-3">
+<h3 id="orga0bb59f"><span class="section-number-3">2.3.</span> Eine Nachricht entschlüsseln</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Um einen Geheimtext zu entschlüsseln wird die selbe Formel verwendet wie zum verschlüsseln.
@@ -539,7 +540,7 @@ wurde  K = 420
 </div>
 <div id="postamble" class="status">
 <p class="author">Autor: Lukas Singer</p>
-<p class="date">Created: 2024-05-17 Fr 13:38</p>
+<p class="date">Created: 2024-05-22 Mi 10:42</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
