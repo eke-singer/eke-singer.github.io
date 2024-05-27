@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+<head>
+<!-- 2024-05-27 Mo 09:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Traceroute</title>
+<meta name="author" content="Lukas Singer" />
+<meta name="description" content="Traceroute" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="styles/main.css" />
+<link rel="stylesheet" href="styles/stackoverflow-dark.min.css" />
+<script src="scripts/highlight.min.js" type="text/javascript"></script>
+<script src="scripts/main.js" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Traceroute</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Inhaltsverzeichnis</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc3de203">1. Prinzipieller Ablauf</a></li>
+<li><a href="#orgc2274bb">2. <code>traceroute</code> / <code>tracert</code> in Action</a>
+<ul>
+<li><a href="#org6559ca9">2.1. Windows</a></li>
+<li><a href="#org80f8df4">2.2. Mac OS</a></li>
+<li><a href="#orgf988cae">2.3. Linux</a></li>
+</ul>
+</li>
+<li><a href="#org380260a">3. Traceroute selbst nachvollziehen mittels <code>ping</code></a></li>
+<li><a href="#org6bf4ec7">4. Fazit</a></li>
+</ul>
+</div>
+</div>
+<p>
+Traceroute (<code>traceroute</code> unter Linux bzw. <code>tracert</code> unter Windows) ist ein Tool um den Weg,
+den ein Datenpaket durch verschiedene Netzwerke, zu einem angegebenen Ziel, zurücklegt zu ermitteln.
+</p>
+
+<p>
+Im <b>IP-Header</b> findet man das Feld <b>TTL</b>.
+Dieses wird vom Absender auf einen Anfangswert gesetzt und bei jedem <i>Hop</i>
+(übergang von einem Netz in ein anderes; also bei jedem Router) um \(1\) verringert.
+</p>
+
+<p>
+Setzt ein Router den Wert auf \(0\) so ist die TTL abgelaufen und das Paket wird verworfen.
+Typischerweise sendet der Router, der das Paket verworfen hat dann eine Fehlermeldung an den
+Absender (<code>Time To Live expired</code>).
+</p>
+
+<p>
+Traceroute macht sich genau das zu nutze und sendet nacheinander Datenpakete mit aufsteigender TTL,
+somit wird im ersten Schritt (mit <code>TTL = 1</code>) das Datenpaket vom ersten Router verworfen und zurückgemeldet.
+Im zweiten Schritt (mit <code>TTL = 2</code>) vom zweiten Router, im dritten Schritt (mit <code>TTL = 3</code>) vom dritten usw.
+</p>
+
+<p>
+Anhand der Absender der Fehlermeldung lässt sich dann darauf schließen,
+welchen Weg ein Datenpaket zu seinem Ziel zurücklegt.
+</p>
+
+<div id="outline-container-orgc3de203" class="outline-2">
+<h2 id="orgc3de203"><span class="section-number-2">1.</span> Prinzipieller Ablauf</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Im folgenden wird der Prinzipielle Ablauf erklärt ohne, dabei zu sehr auf die tatsächlichen technischen Details einzugehen.
+</p>
+
+<ol class="org-ol">
+<li value="1">PC 1 schickt ein Datenpakte mit TTL 1 an (in Richtung) PC 2.</li>
+</ol>
+
+<div id="org6e936b9" class="figure">
+<p><img src="traceroute/traceroute-01.png" alt="traceroute-01.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="2">Router 1 verringert die TTL, diese wird 0, daher wird das Paket verworfen</li>
+</ol>
+
+<div id="org9f9f280" class="figure">
+<p><img src="traceroute/traceroute-02.png" alt="traceroute-02.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="3">Router 1 sendet eine ttl-expired-Fehlermeldung zurück an PC 1</li>
+</ol>
+
+<div id="orgcfaaba3" class="figure">
+<p><img src="traceroute/traceroute-03.png" alt="traceroute-03.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="4">PC 1 protokolliert von wem die ttl-expired-Fehlermeldung mit TTL 1 kam und schickt ein neues Datenpakt mit TTL 2 an (in Richtung) PC 2.</li>
+</ol>
+
+<div id="orgebbaff5" class="figure">
+<p><img src="traceroute/traceroute-04.png" alt="traceroute-04.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="5">Router 1 verringert die TTL, diese wird 1, das Paket wird weitergeleitet.</li>
+</ol>
+
+<div id="org00c5281" class="figure">
+<p><img src="traceroute/traceroute-05.png" alt="traceroute-05.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="6">Router 2 verringert die TTL, diese wird 0, daher wird das Paket verworfen</li>
+</ol>
+
+<div id="org9ad30a1" class="figure">
+<p><img src="traceroute/traceroute-06.png" alt="traceroute-06.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="7">Router 2 sendet eine ttl-expired-Fehlermeldung zurück an PC 1</li>
+</ol>
+
+<div id="orgcd8be5f" class="figure">
+<p><img src="traceroute/traceroute-07.png" alt="traceroute-07.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="8">PC 1 protokolliert von wem die ttl-expired-Fehlermeldung mit TTL 2 kam und schickt ein neues Datenpakt mit TTL 3 an (in Richtung) PC 2.</li>
+</ol>
+
+<div id="org1c63196" class="figure">
+<p><img src="traceroute/traceroute-08.png" alt="traceroute-08.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="9">Router 1 verringert die TTL, diese wird 2, das Paket wird weitergeleitet.</li>
+</ol>
+
+<div id="org6a2b227" class="figure">
+<p><img src="traceroute/traceroute-09.png" alt="traceroute-09.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="10">Router 2 verringert die TTL, diese wird 1, das Paket wird weitergeleitet.</li>
+</ol>
+
+<div id="org4909ea2" class="figure">
+<p><img src="traceroute/traceroute-10.png" alt="traceroute-10.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="11">PC 2 sendet eine Antwort an PC 1.</li>
+</ol>
+
+<div id="orgcfdfd44" class="figure">
+<p><img src="traceroute/traceroute-11.png" alt="traceroute-11.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="12">PC 1 empfängt die Antwort von PC 2 und weiß jetzt, dass das Ziel erreicht wurde.</li>
+</ol>
+
+<div id="org1d147d7" class="figure">
+<p><img src="traceroute/traceroute-12.png" alt="traceroute-12.png" />
+</p>
+</div>
+<ol class="org-ol">
+<li value="13">PC 1 gibt eine Zusammenfassung der Routenverfolgung aus.</li>
+</ol>
+
+<div id="orge3c34da" class="figure">
+<p><img src="traceroute/traceroute-13.png" alt="traceroute-13.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc2274bb" class="outline-2">
+<h2 id="orgc2274bb"><span class="section-number-2">2.</span> <code>traceroute</code> / <code>tracert</code> in Action</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Unter Linux und MacOS verwendet das Tool <code>traceroute</code> standardmäßig einfache UDP-Pakete anstatt ICMP-Echo-Requests für die Routenverfolgung.
+</p>
+
+<p>
+Möchte man das gleiche verhalten wie das Tool <code>tracert</code> unter Windows erreichen, kann man über den Kommandozeilenparameter <code>-I</code> bzw. <code>--icmp</code> einstellen, dass ICMP-Echo-Requests verwendet werden sollen.
+(Dies benötigt je nach Systemkonfiguration jedoch erhöhte Rechte, muss also mit <code>sudo</code> ausgeführt werden.
+</p>
+</div>
+
+<div id="outline-container-org6559ca9" class="outline-3">
+<h3 id="org6559ca9"><span class="section-number-3">2.1.</span> Windows</h3>
+<div class="outline-text-3" id="text-2-1">
+<pre class="example" id="org6a4539b">
+C:\&gt; tracert www.eke.at
+
+Routenverfolgung zu www.eke.at [81.19.159.34]
+über maximal 30 Hops:
+
+  1     3 ms     3 ms     2 ms  192.168.159.254
+  2    10 ms    11 ms     3 ms  clnet-b10-193.ikbnet.co.at [83.175.119.193]
+  3     5 ms     5 ms     5 ms  172.20.255.101
+  4     8 ms     4 ms     5 ms  clnet-56p160-004.ikbnet.co.at [212.56.160.4]
+  5     *        *        *     Zeitüberschreitung der Anforderung.
+  6    25 ms    27 ms    25 ms  212.227.120.107
+  7     *        *        *     Zeitüberschreitung der Anforderung.
+  8    30 ms    31 ms    31 ms  www34sni.world4you.com [81.19.159.34]
+
+Ablaufverfolgung beendet.
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org80f8df4" class="outline-3">
+<h3 id="org80f8df4"><span class="section-number-3">2.2.</span> Mac OS</h3>
+<div class="outline-text-3" id="text-2-2">
+<pre class="example" id="org1f7fd69">
+~$ traceroute -I www.eke.at
+traceroute to www.eke.at (81.19.159.34), 64 hops max, 48 byte packets
+ 1  192.168.159.254 (192.168.159.254)  7.528 ms  3.650 ms  3.636 ms
+ 2  clnet-b10-193.ikbnet.co.at (83.175.119.193)  4.730 ms  12.766 ms  4.134 ms
+ 3  172.20.255.101 (172.20.255.101)  5.348 ms  6.260 ms  6.401 ms
+ 4  clnet-56p160-004.ikbnet.co.at (212.56.160.4)  5.467 ms  8.140 ms  6.368 ms
+ 5  * * *
+ 6  212.227.120.105 (212.227.120.105)  35.173 ms  33.078 ms  28.379 ms
+ 7  * * *
+ 8  www34sni.world4you.com (81.19.159.34)  37.544 ms  31.725 ms  31.212 ms
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgf988cae" class="outline-3">
+<h3 id="orgf988cae"><span class="section-number-3">2.3.</span> Linux</h3>
+<div class="outline-text-3" id="text-2-3">
+<pre class="example" id="orged5abb4">
+~$ sudo traceroute -I www.eke.at
+traceroute to www.eke.at (81.19.159.34), 30 hops max, 60 byte packets
+1  _gateway (10.1.255.254)  4.419 ms  4.385 ms  4.377 ms
+2  clnet-b10-193.ikbnet.co.at (83.175.119.193)  5.491 ms  5.484 ms  5.477 ms
+3  172.20.255.101 (172.20.255.101)  7.104 ms  7.515 ms  8.444 ms
+4  clnet-56p160-004.ikbnet.co.at (212.56.160.4)  7.500 ms  7.492 ms  8.422 ms
+5  * * *
+6  212.227.120.105 (212.227.120.105)  30.204 ms  26.570 ms  26.717 ms
+7  * * *
+8  www34sni.world4you.com (81.19.159.34)  28.256 ms  28.559 ms  28.480 ms
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org380260a" class="outline-2">
+<h2 id="org380260a"><span class="section-number-2">3.</span> Traceroute selbst nachvollziehen mittels <code>ping</code></h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Mit dem Befehl <code>ping</code> wird kann man den Ablauf einer Routenverfolgung einfach Schritt für Schritt nachvollziehen,
+indem man selbst die TTL einstellt und von Aufruf zu Aufruf jeweils um \(1\) erhöht.
+</p>
+
+<p>
+Auch der Befehl <code>ping</code> unterscheidet sich leicht zwischen Windows und Linux/MacOS.
+</p>
+
+<p>
+Ich verwende den Befehl typischerweise so:
+</p>
+<pre class="example" id="org43dd10f">
+~$ ping -c 3 -i 0.3 -t &lt;TTL&gt; www.eke.at
+</pre>
+
+<ul class="org-ul">
+<li><code>-c 3</code> bedeutet, dass 3 Echo-Requests geschickt werden</li>
+<li><code>-i 0.3</code> bedeutet, dass zwischen den Echo-Requests \(0{,}3\) Sekunden liegen sollen</li>
+<li><code>-t &lt;TTL&gt;</code> stellt die gewünschte Time-To-Live ein, <code>&lt;TTL&gt;</code> muss natürlich durch eine Zahl ersetzt werden</li>
+</ul>
+
+<p>
+Unter Windows würde ein vergleichbarer Befehl so aussehen:
+</p>
+<pre class="example" id="orgc34ba11">
+C:\&gt; ping /n 3 /i &lt;TTL&gt; www.eke.at
+</pre>
+
+<ul class="org-ul">
+<li><code>/n 3</code> bedeutet, dass 3 Echo-Requests geschickt werden</li>
+<li><code>/i &lt;TTL&gt;</code> stellt die gewünschte Time-To-Live ein, <code>&lt;TTL&gt;</code> muss natürlich durch eine Zahl ersetzt werden</li>
+</ul>
+
+<p>
+Im folgenden sieht man wie durch wiederholten Aufruf von <code>ping</code> die selben Informationen gesammelt werden, wie durch <code>traceroute</code>.
+</p>
+<pre class="example" id="orgcbb467d">
+~$ ping -c 1 -i 0.3 -t 1 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+From _gateway (10.1.255.254) icmp_seq=1 Time to live exceeded
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 2 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+From clnet-b10-193.ikbnet.co.at (83.175.119.193) icmp_seq=1 Time to live exceeded
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 3 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+From 172.20.255.100 (172.20.255.100) icmp_seq=1 Time to live exceeded
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 4 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+From clnet-56p160-004.ikbnet.co.at (212.56.160.4) icmp_seq=1 Time to live exceeded
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 5 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 6 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+From 212.227.120.105 (212.227.120.105) icmp_seq=1 Time to live exceeded
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 7 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+~$ ping -c 1 -i 0.3 -t 8 www.eke.at
+PING www.eke.at (81.19.159.34) 56(84) bytes of data.
+64 bytes from www34sni.world4you.com (81.19.159.34): icmp_seq=1 ttl=51 time=39.5 ms
+
+--- www.eke.at ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 39.549/39.549/39.549/0.000 ms
+~$ 
+</pre>
+
+<p>
+Vergleicht man nun die Ausgaben der wiederholten <code>ping</code> Aufrufe mit dem <code>traceroute</code> Aufruf, sieht man,
+dass die <i>Hops</i> bei den TTL-Werten \(1, 2, 3, 4\) und \(6\) jeweils mit der Fehlermeldung <code>Time to live exceeded</code> geantwortet haben.
+Bei den TTL-Werten \(5\) und \(7\) kam keine Antwort. (Höchstwahrscheinlich sind diese Router so konfiguriert, dass sie die Datenpakete beim erreichen von TTL = \(0\) nur verwerfen, aber keine Fehlermeldung an den absende schicken.
+Beim TTL-Wert von \(8\) wird das Ziel <code>www.eke.at</code> erreicht, somit ist die Routenverfolgung beendet.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org6bf4ec7" class="outline-2">
+<h2 id="org6bf4ec7"><span class="section-number-2">4.</span> Fazit</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<code>traceroute</code> / <code>tracert</code> ist sehr nützlich um Netzwerke zu analysieren.
+Es liefert Informationen darüber welchen Weg ein Datenpaket nimmt, dazu nutzt es ICMP.
+Mittels <code>ping</code> kann man gut nachvollziehen, wie <code>traceroute</code> <i>intern</i> arbeitet und wie es zu seinen Informationen kommt.
+Nicht alle Router "am Weg" sind so konfiguriert, dass sie die gewünschten <code>Time to live exceeded</code> Fehlermeldungen schicken, über diese erhält man dadurch dann keine Informationen.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autor: Lukas Singer</p>
+<p class="date">Created: 2024-05-27 Mo 09:55</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
