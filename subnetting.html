@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+<head>
+<!-- 2024-06-05 Mi 16:30 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IP-Analyse und Subnetting</title>
+<meta name="author" content="Lukas Singer" />
+<meta name="description" content="IP-Analyse und Subnetting" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="styles/main.css" />
+<link rel="stylesheet" href="styles/stackoverflow-dark.min.css" />
+<script src="scripts/highlight.min.js" type="text/javascript"></script>
+<script src="scripts/main.js" type="text/javascript"></script>
+<script src="scripts/subnetting.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">IP-Analyse und Subnetting</h1>
+<table style="width:100%">
+  <tr>
+    <td>IP:</td>
+    <td>
+      <input type="text" id="ip_dec" value="192.168.42.23" style="width:75%">
+      /
+      <input type="text" id="suffix" value="24" style="width:5%">
+      <input type="button" value="Calculate" id="btnIPAnalyse" style="width:auto">
+    </td>
+  </tr>
+  <tr>
+    <td>IP<sub>2</sub>:</td>
+    <td><input type="text" id="ip_bin" readonly="true" style="width:100%"></td>
+  <tr>
+    <td>SNM<sub>10</sub>:</td>
+    <td><input type="text" id="snm_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>SNM<sub>2</sub>:</td>
+    <td>
+      <input type="text" id="snm_bin" readonly="true" style="width:100%">
+    </td>
+  </tr>
+  <tr>
+    <td>NetID<sub>2</sub>:</td>
+    <td><input type="text" id="netid_bin" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>NetID<sub>10</sub>:</td>
+    <td><input type="text" id="netid_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>BCA<sub>2</sub>:</td>
+    <td><input type="text" id="bca_bin" readonly="true" style="width:100%"></td>
+  </tr>
+    <td>BCA<sub>10</sub>:</td>
+    <td><input type="text" id="bca_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  </tr>
+  <tr>
+    <td>Hostrange:</td>
+    <td><input type="text" id="range" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>Hostanzahl:</td>
+    <td><input type="text" id="count" readonly="true" style="width:100%"></td>
+  </tr>
+</table>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autor: Lukas Singer</p>
+<p class="date">Created: 2024-06-05 Mi 16:30</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
