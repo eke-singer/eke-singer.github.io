@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="TEASER" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1e5f6e;
+      }
+
+      .cls-2 {
+        fill: #0096d2;
+        stroke: #000;
+        stroke-width: 35px;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="2400" height="1600"/>
+  <rect class="cls-2" x="425" y="305" width="1550" height="990" rx="161.91" ry="161.91"/>
+  <circle class="cls-2" cx="588" cy="468" r="73"/>
+  <circle class="cls-2" cx="798" cy="468" r="73"/>
+  <circle class="cls-2" cx="1008" cy="468" r="73"/>
+  <line class="cls-2" x1="425" y1="619" x2="1975" y2="619"/>
+  <polygon class="cls-2" points="1774.42 1094 1654.58 974.15 1534.73 1094 1534.73 619 1774.42 619 1774.42 1094"/>
+</svg>
