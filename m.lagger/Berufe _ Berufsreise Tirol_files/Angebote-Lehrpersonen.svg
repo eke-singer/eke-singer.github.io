@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="TEASER" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #008750;
+      }
+
+      .cls-2 {
+        fill: #1964b4;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #000;
+        stroke-linejoin: bevel;
+        stroke-width: 35px;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="2400" height="1600"/>
+  <g>
+    <g>
+      <circle class="cls-2" cx="899.86" cy="589.04" r="284.04"/>
+      <path class="cls-2" d="m398.56,1295c0-233.03,224.44-421.93,501.3-421.93s501.3,188.9,501.3,421.93H398.56Z"/>
+    </g>
+    <g>
+      <polyline class="cls-3" points="1886.04 1027.66 1471.04 800.16 1886.04 572.66"/>
+      <circle class="cls-2" cx="1886.44" cy="1028" r="115"/>
+      <circle class="cls-2" cx="1471.44" cy="800" r="115"/>
+      <circle class="cls-2" cx="1886.44" cy="573" r="115"/>
+    </g>
+  </g>
+</svg>

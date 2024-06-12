@@ -13,8 +13,8 @@ function octets(i32, b=10) {
 }
 
 function toi32(o) {
-    c = x => parseInt(x);
-    return (c(o[0]) << 24 | c(o[1]) << 16 | c(o[2]) << 8 | c[3]) >>>0;
+    c = x => parseInt(x) >>>0;
+    return ((c(o[0]) << 24) | (c(o[1]) << 16) | (c(o[2]) << 8) | (c(o[3]))) >>>0;
 }
 
 function doIPAnalyse() {
@@ -25,6 +25,8 @@ function doIPAnalyse() {
         suffix: document.getElementById("suffix"),
         snm10: document.getElementById("snm_dec"),
         snm2: document.getElementById("snm_bin"),
+        wcm10: document.getElementById("wcm_dec"),
+        wcm2: document.getElementById("wcm_bin"),
         net2: document.getElementById("netid_bin"),
         net10: document.getElementById("netid_dec"),
         bca2: document.getElementById("bca_bin"),
@@ -36,7 +38,8 @@ function doIPAnalyse() {
         dom.ip10.style.color = "#0f0";
         return;
     }
-    ip = toi32(dom.ip10.value.split("."))
+    //alert(dom.ip10.value.split("."));
+    ip = toi32(dom.ip10.value.split("."));
     suffix = parseInt(dom.suffix.value);
     if (isNaN(suffix)) {
         dom.suffix.style.color = "#f00";
@@ -49,12 +52,14 @@ function doIPAnalyse() {
     snm = suffix2snm(suffix);
     dom.snm10.value = octets(snm);
     dom.snm2.value = octets(snm, 2);
+    dom.wcm10.value = octets(~snm);
+    dom.wcm2.value = octets(~snm, 2);
     dom.ip2.value = octets(ip, 2);
     dom.net10.value = octets(ip & snm);
     dom.net2.value = octets(ip & snm, 2);
     dom.bca10.value = octets(ip | ~snm);
     dom.bca2.value = octets(ip | ~snm, 2);
-    dom.range.value = `${octets((ip & snm) + 1)} bis ${octets((ip | ~snm) - 1)}`;
+    dom.range.value = `${octets((ip & snm) + 1)}   bis   ${octets((ip | ~snm) - 1)}`;
     dom.count.value = 2 ** (32 - suffix) - 2;
 }
 
