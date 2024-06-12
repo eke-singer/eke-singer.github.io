@@ -38,7 +38,6 @@ function doIPAnalyse() {
         dom.ip10.style.color = "#0f0";
         return;
     }
-    //alert(dom.ip10.value.split("."));
     ip = toi32(dom.ip10.value.split("."));
     suffix = parseInt(dom.suffix.value);
     if (isNaN(suffix)) {
