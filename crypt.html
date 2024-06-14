@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+<head>
+<!-- 2024-06-13 Do 16:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Checksummen- und Kryptographierechner</title>
+<meta name="author" content="Lukas Singer" />
+<meta name="description" content="Kleine Tools zum Berechnen von Checksummen (CRC, IBAN) und des RSA-Kryptosystems" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" href="styles/main.css" />
+<link rel="stylesheet" href="styles/stackoverflow-dark.min.css" />
+<script src="scripts/highlight.min.js" type="text/javascript"></script>
+<script src="scripts/main.js" type="text/javascript"></script>
+<script src="scripts/crypt.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Checksummen- und Kryptographierechner</h1>
+
+<div id="outline-container-orgfd48128" class="outline-2">
+<h2 id="orgfd48128"><span class="section-number-2">1.</span> Modulo Rechner</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Tool zum berechnen des Moduls (Rest der Division) von "beliebig" großen Zahlen.
+</p>
+<table style="width:100%">
+  <tr>
+    <td>Zahlensystem:</td>
+    <td colspan="4">
+      <select id="mod_base" name="Basis" style="width:100%">
+        <option value="2">2 (Binär)</option>
+        <option value="8">8 (Oktal)</option>
+        <option value="10" selected="true">10 (Dezimal)</option>
+        <option value="16">16 (Hexadezimal)</option>
+        <option value="64">64 (Base64)</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <input type="text" id="mod_a" style="width:95%">
+    </td>
+    <td> mod </td>
+    <td>
+      <input type="text" id="mod_b" style="width:95%">
+    </td>
+    <td><input type="button" value=" = " id="btnMod" style="width:auto"></td>
+    <td>
+      <input type="text" id="mod_r" style="width:95%">
+    </td>
+  </tr>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org60f3892" class="outline-2">
+<h2 id="org60f3892"><span class="section-number-2">2.</span> Checksum (Prüfsummen)</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgf51b92a" class="outline-3">
+<h3 id="orgf51b92a"><span class="section-number-3">2.1.</span> IBAN</h3>
+<div class="outline-text-3" id="text-2-1">
+</div>
+<div id="outline-container-org87e3a39" class="outline-4">
+<h4 id="org87e3a39"><span class="section-number-4">2.1.1.</span> Berechnen</h4>
+</div>
+
+<div id="outline-container-org500bfa7" class="outline-4">
+<h4 id="org500bfa7"><span class="section-number-4">2.1.2.</span> Verifizieren</h4>
+</div>
+</div>
+
+<div id="outline-container-org1085602" class="outline-3">
+<h3 id="org1085602"><span class="section-number-3">2.2.</span> CRC</h3>
+<div class="outline-text-3" id="text-2-2">
+<table style="width:100%">
+  <tr>
+    <td>IP<sub>10</sub>:</td>
+    <td>
+      <input type="text" id="ip_dec" value="192.168.42.23" style="width:75%">
+      /
+      <input type="text" id="suffix" value="24" style="width:5%">
+      <input type="button" value="Calculate" id="btnIPAnalyse" style="width:auto">
+    </td>
+  </tr>
+  <tr>
+    <td>IP<sub>2</sub>:</td>
+    <td><input type="text" id="ip_bin" readonly="true" style="width:100%"></td>
+  <tr>
+    <td>SNM<sub>10</sub>:</td>
+    <td><input type="text" id="snm_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>SNM<sub>2</sub>:</td>
+    <td>
+      <input type="text" id="snm_bin" readonly="true" style="width:100%">
+    </td>
+  </tr>
+     <td>WCM<sub>10</sub>:</td>
+    <td><input type="text" id="wcm_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>WCM<sub>2</sub>:</td>
+    <td>
+      <input type="text" id="wcm_bin" readonly="true" style="width:100%">
+    </td>
+  </tr>
+  <tr>
+    <td>NetID<sub>2</sub>:</td>
+    <td><input type="text" id="netid_bin" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>NetID<sub>10</sub>:</td>
+    <td><input type="text" id="netid_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>BCA<sub>2</sub>:</td>
+    <td><input type="text" id="bca_bin" readonly="true" style="width:100%"></td>
+  </tr>
+    <td>BCA<sub>10</sub>:</td>
+    <td><input type="text" id="bca_dec" readonly="true" style="width:100%"></td>
+  </tr>
+  </tr>
+  <tr>
+    <td>Hostrange:</td>
+    <td><input type="text" id="range" readonly="true" style="width:100%"></td>
+  </tr>
+  <tr>
+    <td>Hostanzahl:</td>
+    <td><input type="text" id="count" readonly="true" style="width:100%"></td>
+  </tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Autor: Lukas Singer</p>
+<p class="date">Created: 2024-06-13 Do 16:19</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
